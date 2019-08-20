@@ -46,5 +46,47 @@ resource "aws_iam_user" "admin-users" {
   name  = "${element(var.users,count.index)}-admin"
 }
 
+# EC2 ROLE 
+resource "aws_iam_role" "ec2-s3-admin" {
+    name = "ec2-s3-admin"
+
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "ec2-s3-admin-policy" {
+  name = "ec2-s3-admin-policy"
+  role = "${aws_iam_role.ec2-s3-admin.id}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+
 
 

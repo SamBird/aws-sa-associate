@@ -1,0 +1,69 @@
+IAM
+- PCI DSS Compliant (card details)
+- You can set up a password rotation policy
+- Multi-factor etc
+
+- Users: End Users (people) i.e. employees of an organisations
+- Group: Collection of users, users in a group inherit permissions
+- Policies: Can be attached to User/Group/Role and give permissions as to what can and can't do
+- Roles: To be assiged to AWS resources
+
+- New users have no permissions when first created, assign them to a group with permissions arttached.
+- New users are assigned access and secret keys to access AWS programatically
+- These cannot be used to log into the console / password field
+- Only get to view them once, save CSV file in location
+- Enable MFA on root account 
+- Create and customize your own password rotation policies
+- Billing Alarm
+
+S3
+- Object-based, i.e allows you to upload files
+- 0 Bytes to 5TB
+- Unlimited Storage
+- Stored in Buckets
+- S3 objects consist of the following:
+    - Key, 
+    - Value,
+    - Version ID,
+    - Metadata, 
+    - Subresources (Access Control Lists - the permissions of an object/bucket)
+- S3 is a universal namespace. That is, names must be unique globally.
+
+Data Consistency for S3
+- Read after Write consistency for PUTS of new objects. (If you upload a file to S3 you can read it immidiately after)
+- Eventual Consistency for overwrite PUTS and DELETES (can take some time to propergate) (If you overwrite one you may get the wrong version back while it properagates through)
+
+Guarantees from Amazon
+- 99.9% availability 
+- 11 9s of durability (virtually impossible of being lost)
+
+Features
+- Tired Storage (need to know for exam 4-5 points worth)
+- Lifecycle Management
+- Versioning
+- Encyption (at REST)]
+- MFA to Delete objects 
+- Use Access Control and policies to control the Data
+
+S3 Storage Classes
+- S3 Standard
+- S3 IA (Infrequenclty Accessed - accesed less frequently, but when needed it's rapid to retreive)
+- S3 One Zone - IA (Lower cost than the above, in 1 AZ)
+- S3 Intelligent Tiering (ML to ompitimxe cost of your objects byt moving objects around)
+- S3 Glacier (for data acrchiving, low-cost storage, retreival time configurable from minutes to hours)
+- S3 Glacier Deep Archive (same as above but retreival time of 12 hours is acceptable)
+
+S3 Charges
+- Storage (amount, number of objects)
+- Number of requests to GET, DELETE etc.
+- Storage Management Pricing (i.e the option / storage class used)
+- Data Transfer Pricing
+- Transfer Acceleration (speeds up user upload time - fast and secure transfer of files over long distances between buckets and end users by using AWS CloudFront edge locations via optiomized network path)
+- Cross Region Replication Pricing
+
+S3 Exam Tips
+- Object based, so you can't do things like install an OS on it (obviously)
+- Successful uploads will generate a HTTP 200 status code.
+- MFA Delete
+- Read the S3 FAQ's, it comes up ALOT!
+
