@@ -1,4 +1,12 @@
-
+# ACCOUNT PASSWORD POLICY
+resource "aws_iam_account_password_policy" "root-account-password-policy" {
+  minimum_password_length        = 10
+  require_lowercase_characters   = true
+  require_numbers                = true
+  require_uppercase_characters   = true
+  require_symbols                = false
+  allow_users_to_change_password = true
+}
 
 # ADMIN GROUP
 resource "aws_iam_group" "admins" {
