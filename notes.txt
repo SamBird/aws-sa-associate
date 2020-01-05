@@ -67,3 +67,18 @@ S3 Exam Tips
 - MFA Delete
 - Read the S3 FAQ's, it comes up ALOT!
 
+- By default, all created buckets are PRIVATE access.
+- S3 logs can be set up to audit/log all requests to bucket and objects
+- Encryption in transit (i.e HTTPS) is acheived by SSL/TLS
+- Encryption at rest (server-side) is acheived: 
+    - S3 managed keys SSE-S3 (AES-256), AWS SSE-KMS Keys, Custom SSE-KMS Keys. 
+
+Versioning
+- Once enabled, versioning cannot be disabled - you need to re-create the bucket 
+- Great backup tool 
+- Integrates with lifecycle rules
+- Permissions change on the file with versioning when you re-upload (as treats it as a new file)
+- Version ID keeps it unique.
+
+Lifecycle policy
+- 

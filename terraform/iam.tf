@@ -15,42 +15,44 @@ resource "aws_iam_group" "admins" {
 }
 
 resource "aws_iam_group_membership" "admin-users-group-memebership" {
-  name = "admin-users-group-membership"
-  users = "${aws_iam_user.admin-users.*.name}"
-  group = "${aws_iam_group.admins.name}"
+  name  = "admin-users-group-membership"
+  users = aws_iam_user.admin-users.*.name
+  group = aws_iam_group.admins.name
 }
 
 # ADMIN POLICY
 data "aws_iam_policy_document" "admin-group-policy-document" {
   statement {
     actions = [
-      "*"]
+      "*",
+    ]
     resources = [
-      "*"]
+      "*",
+    ]
   }
 }
 
 resource "aws_iam_policy" "admin-policy" {
-  name = "admin-policy"
-  policy = "${data.aws_iam_policy_document.admin-group-policy-document.json}"
+  name   = "admin-policy"
+  policy = data.aws_iam_policy_document.admin-group-policy-document.json
 }
 
 resource "aws_iam_group_policy_attachment" "admin-group-policy-attachment" {
-  group      = "${aws_iam_group.admins.name}"
-  policy_arn = "${aws_iam_policy.admin-policy.arn}"
+  group      = aws_iam_group.admins.name
+  policy_arn = aws_iam_policy.admin-policy.arn
 }
 
 # ADMIN USERS
 resource "aws_iam_user" "admin-users" {
-  count = "${length(var.users)}"
-  name  = "${element(var.users,count.index)}-admin"
+  count = length(var.users)
+  name  = "${element(var.users, count.index)}-admin"
 }
 
 # EC2 ROLE 
 resource "aws_iam_role" "ec2-s3-admin" {
-    name = "ec2-s3-admin"
+  name = "ec2-s3-admin"
 
-    assume_role_policy = <<EOF
+  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -65,11 +67,12 @@ resource "aws_iam_role" "ec2-s3-admin" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy" "ec2-s3-admin-policy" {
   name = "ec2-s3-admin-policy"
-  role = "${aws_iam_role.ec2-s3-admin.id}"
+  role = aws_iam_role.ec2-s3-admin.id
 
   policy = <<EOF
 {
@@ -85,8 +88,6 @@ resource "aws_iam_role_policy" "ec2-s3-admin-policy" {
   ]
 }
 EOF
+
 }
-
-
-
 

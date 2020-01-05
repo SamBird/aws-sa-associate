@@ -1,4 +1,5 @@
 variable "users" {
-    type = "list"
-    default = ["sambird"]
+  type    = list(string)
+  default = ["sambird"]
 }
+
